@@ -3,8 +3,8 @@ module EventMachine
     include Enumerable
 
     def initialize(&blk)
-      block ||= lambda { |x, y| (x <=> y) == 1 }
-      @heap = Containers::Heap.new(&block)
+      blk ||= lambda { |x, y| (x <=> y) == 1 }
+      @heap = Containers::Heap.new(&blk)
       @callbacks = []
     end
 
