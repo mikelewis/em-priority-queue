@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    em-priority-queue (0.0.1)
+    em-priority-queue (0.0.2)
       algorithms (~> 0.3.0)
       eventmachine (>= 1.0.0.beta.3)
 
