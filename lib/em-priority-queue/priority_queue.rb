@@ -15,7 +15,7 @@ module EventMachine
           end
         end
       end
-      @heap = Containers::Heap.new(&(fifo_blk || blk))
+      @heap = Algorithms::Containers::Heap.new(&(fifo_blk || blk))
       @callbacks = []
     end
 
