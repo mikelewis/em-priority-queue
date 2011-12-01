@@ -1,7 +1,7 @@
 EventMachine Priority Queue
 =============
 
-[![Build Status](https://secure.travis-ci.org/mikelewis/em-priority-queue.png)](http://travis-ci.org/mikelewis/[em-priority-queue])
+[![Build Status](https://secure.travis-ci.org/mikelewis/em-priority-queue.png)](http://travis-ci.org/mikelewis/em-priority-queue)
 
 
 ##Install
