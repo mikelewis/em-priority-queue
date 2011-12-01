@@ -59,6 +59,64 @@ EventMachine Priority Queue
       responses[3] # Bob
 
 
+  **FIFO (first in, first out)**
+
+  When values have the same priority, you may want to use FIFO to prioritize even more. This way, em-priority-queue will pop the items in the order that they were pushed.
+
+    @q = EM::PriorityQueue.new(:fifo => true)
+
+    responses = []
+      EM.run do
+        @q.push("Mike", 20)
+        @q.push("Alex", 21)
+        @q.push("Bob", 20)
+        @q.push("Tim", 18)
+        @q.push("Carol", 20)
+
+        5.times do
+          @q.pop do |e|
+            responses << e
+            EM.stop if responses.size == 5
+          end
+        end
+      end
+
+      responses[0] # Alex
+      responses[1] # Mike
+      responses[2] # Bob
+      responses[3] # Carol
+      responses[4] # Tim
+
+  **FIFO with custom priority**
+
+    @q = EM::PriorityQueue.new(:fifo => true) {|x,y| x < y}
+
+    responses = []
+      EM.run do
+
+
+        @q.push("Mike", 20)
+        @q.push("Alex", 21)
+        @q.push("Bob", 20)
+        @q.push("Tim", 18)
+        @q.push("Carol", 20)
+
+        5.times do
+          @q.pop do |e|
+            responses << e
+            EM.stop if responses.size == 5
+          end
+        end
+      end
+
+      responses[0] # Tim
+      responses[1] # Mike
+      responses[2] # Bob
+      responses[3] # Carol
+      responses[4] # Alex
+
+
+
 
 
   To see all examples/cases, see the spec file.

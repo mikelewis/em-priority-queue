@@ -2,9 +2,20 @@ module EventMachine
   class PriorityQueue
     include Enumerable
 
-    def initialize(&blk)
+    def initialize(opts={}, &blk)
       blk ||= lambda { |x, y| (x <=> y) == 1 }
-      @heap = Containers::Heap.new(&blk)
+      fifo_blk = nil
+      @fifo = !!opts[:fifo]
+      if @fifo
+        fifo_blk = lambda do |x,y|
+          if x[0] == y[0]
+            x[1] < y[1]
+          else
+            blk.call(x[0], y[0])
+          end
+        end
+      end
+      @heap = Containers::Heap.new(&(fifo_blk || blk))
       @callbacks = []
     end
 
@@ -13,6 +24,7 @@ module EventMachine
     end
 
     def push(obj, pri)
+      pri = [pri, Time.now.to_i] if @fifo
       EM.schedule do
         @heap.push(pri, obj)
         @callbacks.shift.call(@heap.pop) until @heap.empty? || @callbacks.empty?
