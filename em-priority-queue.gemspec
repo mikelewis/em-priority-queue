@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency "eventmachine", ">= 1.0.0.beta.3"
-  s.add_dependency "grosser-algorithms"
+  s.add_dependency "stakach-algorithms"
 
 
   s.add_development_dependency 'rake'
